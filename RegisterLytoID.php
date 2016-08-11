@@ -650,7 +650,7 @@ class RegisterLytoID {
         $this->current_failed_captcha++;
         $this->log($this->current_failed_captcha . '/'. $this->max_failed_captcha .' failed. ');
         if ($this->current_failed_captcha / $this->max_failed_captcha >= 1) {
-            $this->log('Max failed gain.');
+            $this->log('Max failed has been reached.');
             return false;
         }
         $response = $this->requestHTTPCaptcha(true);
@@ -939,22 +939,6 @@ class RegisterLytoID {
             return false;
         }
         return $return_response ? $result : true;
-    }
-    /**
-     *
-     */
-    protected function requestHTTPCaptchaAgain($return_response = false)
-    {
-        $this->log('runRequestAgain');
-        if (!$this->requestHTTPCaptcha()) {
-            return false;
-        }
-        sleep(2);
-        $this->inputCaptchaManual();
-        if (!$this->requestHTTPSubmitForm()) {
-            return false;
-        }
-        // return $this;
     }
     /**
      *
